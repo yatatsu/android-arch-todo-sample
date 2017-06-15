@@ -29,6 +29,7 @@ android {
 
 ext.support_version = "25.4.0"
 ext.arch_version = "1.0.0-alpha2"
+ext.dagger_version = "2.11"
 
 dependencies {
   compile "com.android.support:appcompat-v7:$support_version"
@@ -46,6 +47,10 @@ dependencies {
   compile "android.arch.lifecycle:runtime:$arch_version"
   compile "android.arch.lifecycle:extensions:$arch_version"
 
+  compile "com.google.dagger:dagger:${dagger_version}"
+  provided 'javax.annotation:jsr250-api:1.0'
+
+  annotationProcessor "com.google.dagger:dagger-compiler:${dagger_version}"
   annotationProcessor "android.arch.persistence.room:compiler:$arch_version"
   annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
 

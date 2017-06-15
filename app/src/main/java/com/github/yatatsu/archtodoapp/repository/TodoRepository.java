@@ -6,12 +6,13 @@ import com.github.yatatsu.archtodoapp.model.Todo;
 import com.github.yatatsu.archtodoapp.model.TodoStatus;
 import io.reactivex.Completable;
 import java.util.List;
+import javax.inject.Inject;
 
 public final class TodoRepository implements TodoRepositoryService {
 
   private final TodoDb todoDb;
 
-  public TodoRepository(TodoDb todoDb) {
+  @Inject public TodoRepository(TodoDb todoDb) {
     this.todoDb = todoDb;
   }
 
