@@ -1,12 +1,33 @@
 package com.github.yatatsu.archtodoapp.repository;
 
 import android.arch.lifecycle.LiveData;
+import com.github.yatatsu.archtodoapp.db.TodoDb;
 import com.github.yatatsu.archtodoapp.model.Todo;
+import com.github.yatatsu.archtodoapp.model.TodoStatus;
+import io.reactivex.Completable;
 import java.util.List;
 
-public interface TodoRepository {
+public final class TodoRepository implements TodoRepositoryService {
 
-  LiveData<List<Todo>> getTodos();
+  private final TodoDb todoDb;
 
-  // TODO add/delete
+  public TodoRepository(TodoDb todoDb) {
+    this.todoDb = todoDb;
+  }
+
+  @Override public LiveData<List<Todo>> getTodos(TodoStatus status) {
+    return todoDb.todoDao().findByStatus(status);
+  }
+
+  @Override public Completable addTodo(Todo todo) {
+    return Completable.fromAction(() -> todoDb.todoDao().add(todo));
+  }
+
+  @Override public Completable deleteTodo(Todo todo) {
+    return Completable.fromAction(() -> todoDb.todoDao().delete(todo));
+  }
+
+  @Override public Completable updateTodo(Todo todo) {
+    return Completable.fromAction(() -> todoDb.todoDao().update(todo));
+  }
 }
