@@ -1,4 +1,4 @@
-package com.github.yatatsu.archtodoapp.ui;
+package com.github.yatatsu.archtodoapp.ui.todolist;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
