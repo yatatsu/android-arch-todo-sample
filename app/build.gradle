@@ -28,7 +28,7 @@ android {
 }
 
 ext.support_version = "25.4.0"
-ext.arch_version = "1.0.0-alpha2"
+ext.arch_version = "1.0.0-alpha3"
 ext.dagger_version = "2.11"
 
 dependencies {
