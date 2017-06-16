@@ -8,9 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Documented
-@Target({ ElementType.METHOD })
-@Retention(RetentionPolicy.RUNTIME)
-@MapKey @interface ViewModelMapKey {
+@Documented @Target({ ElementType.METHOD }) @Retention(RetentionPolicy.RUNTIME) @MapKey
+public @interface ViewModelMapKey {
   Class<? extends ViewModel> value();
 }

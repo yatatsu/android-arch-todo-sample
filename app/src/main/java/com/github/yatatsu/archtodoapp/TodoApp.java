@@ -1,16 +1,13 @@
 package com.github.yatatsu.archtodoapp;
 
-import android.app.Application;
-import android.content.Context;
-import com.github.yatatsu.archtodoapp.di.AppComponent;
-import com.github.yatatsu.archtodoapp.di.AppModule;
+import com.github.yatatsu.archtodoapp.di.AppInjector;
 import com.github.yatatsu.archtodoapp.di.DaggerAppComponent;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+import dagger.android.AndroidInjector;
+import dagger.android.support.DaggerApplication;
 import timber.log.Timber;
 
-public class TodoApp extends Application {
-
-  private final AppComponent appComponent = createComponent();
+public class TodoApp extends DaggerApplication {
 
   @Override public void onCreate() {
     super.onCreate();
@@ -19,17 +16,11 @@ public class TodoApp extends Application {
     if (BuildConfig.DEBUG) {
       Timber.plant(new Timber.DebugTree());
     }
+
+    AppInjector.init(this);
   }
 
-  protected AppComponent createComponent() {
-    return DaggerAppComponent.builder().appModule(new AppModule(this)).build();
-  }
-
-  public static TodoApp get(Context context) {
-    return (TodoApp) context.getApplicationContext();
-  }
-
-  public AppComponent getAppComponent() {
-    return appComponent;
+  @Override protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+    return DaggerAppComponent.builder().application(this).build();
   }
 }

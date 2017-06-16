@@ -1,4 +1,4 @@
-package com.github.yatatsu.archtodoapp.ui.todolist;
+package com.github.yatatsu.archtodoapp.ui.list;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -9,7 +9,7 @@ import com.github.yatatsu.archtodoapp.repository.TodoRepository;
 import java.util.List;
 import javax.inject.Inject;
 
-public class TodoListViewModel extends ViewModel {
+public final class TodoListViewModel extends ViewModel {
 
   private final TodoRepository todoRepository;
   private LiveData<List<Todo>> todoList = new MutableLiveData<>();
@@ -19,7 +19,7 @@ public class TodoListViewModel extends ViewModel {
     todoList = todoRepository.getTodos(TodoStatus.INBOX);
   }
 
-  public LiveData<List<Todo>> getTodoList() {
+  LiveData<List<Todo>> getTodoList() {
     return todoList;
   }
 }

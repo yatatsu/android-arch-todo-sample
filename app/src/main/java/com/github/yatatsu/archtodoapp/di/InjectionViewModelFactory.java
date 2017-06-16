@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
-@Singleton public class InjectionViewModelFactory implements ViewModelProvider.Factory {
+public class InjectionViewModelFactory implements ViewModelProvider.Factory {
 
   private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 
