@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import com.github.yatatsu.archtodoapp.R;
 import com.github.yatatsu.archtodoapp.databinding.FragmentTodolistBinding;
 import com.github.yatatsu.archtodoapp.di.Injectable;
+import com.github.yatatsu.archtodoapp.ui.add.AddTodoActivity;
 import java.util.Collections;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -58,6 +60,10 @@ public class TodoListFragment extends Fragment implements LifecycleRegistryOwner
     // adapter
     adapter = new TodoAdapter(getContext(), Collections.emptyList());
     binding.todoList.setAdapter(adapter);
+
+    // fab
+    binding.fabAddTodo.setOnClickListener(v -> startActivity(new Intent(getContext(),
+        AddTodoActivity.class)));
 
     return binding.getRoot();
   }

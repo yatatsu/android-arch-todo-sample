@@ -4,10 +4,10 @@
     android:layout_width="match_parent">
 
   <fragment
-      android:id="@+id/todo_list_fragment"
+      android:id="@+id/add_todo_fragment"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      class="com.github.yatatsu.archtodoapp.ui.list.TodoListFragment"
+      class="com.github.yatatsu.archtodoapp.ui.add.AddTodoFragment"
       />
 
 </FrameLayout>

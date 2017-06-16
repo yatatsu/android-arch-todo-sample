@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">android-arch-todo-sample</string>
+  <string name="title_add_todo">Add Todo</string>
 </resources>
