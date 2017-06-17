@@ -12,7 +12,7 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import javax.inject.Inject;
 
-public class AddTodoActivity extends AppCompatActivity implements LifecycleRegistryOwner,
+public final class AddTodoActivity extends AppCompatActivity implements LifecycleRegistryOwner,
     HasSupportFragmentInjector {
 
   @Inject DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
@@ -28,6 +28,6 @@ public class AddTodoActivity extends AppCompatActivity implements LifecycleRegis
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.fragment_addtodo);
+    setContentView(R.layout.activity_addtodo);
   }
 }

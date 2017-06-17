@@ -16,7 +16,7 @@ import com.github.yatatsu.archtodoapp.databinding.FragmentAddtodoBinding;
 import com.github.yatatsu.archtodoapp.di.Injectable;
 import javax.inject.Inject;
 
-public class AddTodoFragment extends Fragment implements LifecycleRegistryOwner, Injectable {
+public final class AddTodoFragment extends Fragment implements LifecycleRegistryOwner, Injectable {
 
   @Inject ViewModelProvider.Factory viewModelFactory;
   private AddTodoViewModel viewModel;
@@ -37,6 +37,12 @@ public class AddTodoFragment extends Fragment implements LifecycleRegistryOwner,
       @Nullable Bundle savedInstanceState) {
     FragmentAddtodoBinding binding =
         DataBindingUtil.inflate(inflater, R.layout.fragment_addtodo, container, false);
+
+    binding.todoSaveButton.setOnClickListener(v -> {
+      viewModel.addTodo(binding.editTodoTitle.getText().toString(),
+          binding.editTodoBody.getText().toString());
+      getActivity().finish();//FIXME should check save result.
+    });
 
     return binding.getRoot();
   }

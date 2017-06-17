@@ -15,10 +15,6 @@ public final class AddTodoViewModel extends ViewModel {
 
   private final TodoRepository todoRepository;
 
-  private String todoName;
-
-  private String todoBody;
-
   private Disposable disposable;
 
   @Inject AddTodoViewModel(TodoRepository todoRepository) {
@@ -31,23 +27,8 @@ public final class AddTodoViewModel extends ViewModel {
     }
   }
 
-  public String getTodoName() {
-    return todoName;
-  }
-
-  public void setTodoName(String todoName) {
-    this.todoName = todoName;
-  }
-
-  public String getTodoBody() {
-    return todoBody;
-  }
-
-  public void setTodoBody(String todoBody) {
-    this.todoBody = todoBody;
-  }
-
-  void addTodo() {
+  void addTodo(String todoName, String todoBody) {
+    Timber.d("add Todo");
     Todo todo = new Todo(0, todoName, todoBody, LocalDateTime.now(), TodoStatus.INBOX);
     disposable = todoRepository.addTodo(todo)
         .subscribeOn(Schedulers.io())

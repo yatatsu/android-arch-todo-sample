@@ -22,7 +22,7 @@ import java.util.Collections;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-public class TodoListFragment extends Fragment implements LifecycleRegistryOwner, Injectable {
+public final class TodoListFragment extends Fragment implements LifecycleRegistryOwner, Injectable {
 
   @Inject ViewModelProvider.Factory viewModelFactory;
   private TodoAdapter adapter;
@@ -53,9 +53,6 @@ public class TodoListFragment extends Fragment implements LifecycleRegistryOwner
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     binding.todoList.setLayoutManager(layoutManager);
-    final DividerItemDecoration dividerItemDecoration =
-        new DividerItemDecoration(getContext(), layoutManager.getOrientation());
-    binding.todoList.addItemDecoration(dividerItemDecoration);
 
     // adapter
     adapter = new TodoAdapter(getContext(), Collections.emptyList());
