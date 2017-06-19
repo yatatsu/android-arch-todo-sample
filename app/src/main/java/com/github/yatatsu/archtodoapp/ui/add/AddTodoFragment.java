@@ -22,6 +22,7 @@ public final class AddTodoFragment extends Fragment implements LifecycleRegistry
   private AddTodoViewModel viewModel;
 
   private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
+  private FragmentAddtodoBinding binding;
 
   @Override public LifecycleRegistry getLifecycle() {
     return lifecycleRegistry;
@@ -30,19 +31,29 @@ public final class AddTodoFragment extends Fragment implements LifecycleRegistry
   @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     viewModel = ViewModelProviders.of(this, viewModelFactory).get(AddTodoViewModel.class);
+
+    viewModel.getAddTodoState().observe(this, state -> {
+      binding.setIsLoading(false);
+      binding.setErrorMessage(null);
+      if (state instanceof AddTodoViewModel.AddTodoState.Loading) {
+        binding.setIsLoading(true);
+      } else if (state instanceof AddTodoViewModel.AddTodoState.Error) {
+        Throwable throwable = ((AddTodoViewModel.AddTodoState.Error) state).throwable;
+        binding.setErrorMessage(throwable.getMessage());
+      } else if (state instanceof AddTodoViewModel.AddTodoState.Complete) {
+        getActivity().finish();
+      }
+    });
   }
 
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    FragmentAddtodoBinding binding =
-        DataBindingUtil.inflate(inflater, R.layout.fragment_addtodo, container, false);
+    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_addtodo, container, false);
 
-    binding.todoSaveButton.setOnClickListener(v -> {
-      viewModel.addTodo(binding.editTodoTitle.getText().toString(),
-          binding.editTodoBody.getText().toString());
-      getActivity().finish();//FIXME should check save result.
-    });
+    binding.todoSaveButton.setOnClickListener(
+        v -> viewModel.addTodo(binding.editTodoTitle.getText().toString(),
+            binding.editTodoBody.getText().toString()));
 
     return binding.getRoot();
   }

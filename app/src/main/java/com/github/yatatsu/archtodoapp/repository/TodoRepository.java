@@ -6,12 +6,14 @@ import com.github.yatatsu.archtodoapp.model.Todo;
 import com.github.yatatsu.archtodoapp.model.TodoStatus;
 import io.reactivex.Completable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton public final class TodoRepository {
 
   private final TodoDb todoDb;
+  private int count;
 
   @Inject TodoRepository(TodoDb todoDb) {
     this.todoDb = todoDb;
@@ -22,7 +24,16 @@ import javax.inject.Singleton;
   }
 
   public Completable addTodo(Todo todo) {
-    return Completable.fromAction(() -> todoDb.todoDao().add(todo));
+    return Completable.fromAction(() -> {
+      // this is error and loading mock!!
+      Thread.sleep(2000);
+      count++;
+      if (count % 2 == 0) {
+        throw new RuntimeException("stub error!!!");
+      }
+
+      todoDb.todoDao().add(todo);
+    });
   }
 
   public Completable deleteTodo(Todo todo) {
