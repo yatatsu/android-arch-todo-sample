@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.github.yatatsu.archtodoapp.R;
 import com.github.yatatsu.archtodoapp.databinding.FragmentAddtodoBinding;
 import com.github.yatatsu.archtodoapp.di.Injectable;
+import com.github.yatatsu.archtodoapp.model.AddTodoState;
 import javax.inject.Inject;
 
 public final class AddTodoFragment extends Fragment implements LifecycleRegistryOwner, Injectable {
@@ -35,12 +36,12 @@ public final class AddTodoFragment extends Fragment implements LifecycleRegistry
     viewModel.getAddTodoState().observe(this, state -> {
       binding.setIsLoading(false);
       binding.setErrorMessage(null);
-      if (state instanceof AddTodoViewModel.AddTodoState.Loading) {
+      if (state instanceof AddTodoState.Loading) {
         binding.setIsLoading(true);
-      } else if (state instanceof AddTodoViewModel.AddTodoState.Error) {
-        Throwable throwable = ((AddTodoViewModel.AddTodoState.Error) state).throwable;
+      } else if (state instanceof AddTodoState.Error) {
+        Throwable throwable = ((AddTodoState.Error) state).getThrowable();
         binding.setErrorMessage(throwable.getMessage());
-      } else if (state instanceof AddTodoViewModel.AddTodoState.Complete) {
+      } else if (state instanceof AddTodoState.Complete) {
         getActivity().finish();
       }
     });

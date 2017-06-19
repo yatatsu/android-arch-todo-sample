@@ -2,6 +2,7 @@ package com.github.yatatsu.archtodoapp.ui.add;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import com.github.yatatsu.archtodoapp.model.AddTodoState;
 import com.github.yatatsu.archtodoapp.model.Todo;
 import com.github.yatatsu.archtodoapp.model.TodoStatus;
 import com.github.yatatsu.archtodoapp.repository.TodoRepository;
@@ -47,22 +48,5 @@ public final class AddTodoViewModel extends ViewModel {
         .doOnNext(state -> Timber.d("state -> %s", state))
         .subscribe(addTodoState::setValue);
     disposables.add(disposable);
-  }
-
-  interface AddTodoState {
-
-    final class None implements AddTodoState {}
-
-    final class Loading implements AddTodoState {}
-
-    final class Error implements AddTodoState {
-      final Throwable throwable;
-
-      Error(Throwable throwable) {
-        this.throwable = throwable;
-      }
-    }
-
-    final class Complete implements AddTodoState {}
   }
 }
