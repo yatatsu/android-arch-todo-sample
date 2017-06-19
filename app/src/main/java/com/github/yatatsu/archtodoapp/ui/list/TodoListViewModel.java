@@ -1,8 +1,11 @@
 package com.github.yatatsu.archtodoapp.ui.list;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
+import com.github.yatatsu.archtodoapp.model.LoadState;
 import com.github.yatatsu.archtodoapp.model.Todo;
 import com.github.yatatsu.archtodoapp.model.TodoStatus;
 import com.github.yatatsu.archtodoapp.repository.TodoRepository;
@@ -11,15 +14,20 @@ import javax.inject.Inject;
 
 public final class TodoListViewModel extends ViewModel {
 
-  private final TodoRepository todoRepository;
-  private LiveData<List<Todo>> todoList = new MutableLiveData<>();
+  private MutableLiveData<TodoStatus> status = new MutableLiveData<>();
+  private LiveData<LoadState<List<Todo>>> todoList = new MediatorLiveData<>();
 
   @Inject TodoListViewModel(TodoRepository todoRepository) {
-    this.todoRepository = todoRepository;
-    todoList = todoRepository.getTodos(TodoStatus.INBOX);
+    todoList = Transformations.switchMap(status, todoRepository::getTodos);
+    status.setValue(TodoStatus.INBOX);
   }
 
-  LiveData<List<Todo>> getTodoList() {
+  void retry() {
+    // set same value
+    status.setValue(status.getValue());
+  }
+
+  LiveData<LoadState<List<Todo>>> getTodoList() {
     return todoList;
   }
 }

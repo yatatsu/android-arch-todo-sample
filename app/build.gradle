@@ -44,8 +44,10 @@ dependencies {
   compile 'com.jakewharton.timber:timber:4.5.1'
 
   compile "android.arch.persistence.room:runtime:$arch_version"
+  compile "android.arch.persistence.room:rxjava2:$arch_version"
   compile "android.arch.lifecycle:runtime:$arch_version"
   compile "android.arch.lifecycle:extensions:$arch_version"
+  compile "android.arch.lifecycle:reactivestreams:$arch_version"
 
   compile "com.google.dagger:dagger:$dagger_version"
   compile "com.google.dagger:dagger-android:$dagger_version"
